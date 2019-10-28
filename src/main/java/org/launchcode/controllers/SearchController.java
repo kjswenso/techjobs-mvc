@@ -6,8 +6,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by LaunchCode
@@ -23,5 +25,32 @@ public class SearchController {
     }
 
     // TODO #1 - Create handler to process search request and display results
+    @RequestMapping(value = "search/results")
+    public String searchValue(@RequestParam String searchType, @RequestParam String searchTerm, Model model) {
+       /* Map<String, String> jobs = new HashMap<>();
+        if (searchType.equals("all") || searchTerm.equals("")) {
+            for(Map.Entry<String, String> job : jobs.entrySet()) {
+                jobs = JobData.findByValue(searchTerm);
+            }
+        } else {
+            jobs.forEach((column, info) -> JobData.findByColumnAndValue(searchType, searchTerm));
+        }
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("jobs", jobs);
 
+        return "search";
+    }*/
+   @RequestMapping(value = "results")
+    public String search(Model model,
+                         @RequestParam String searchType, @RequestParam String searchTerm) {
+        ArrayList<HashMap<String, String>> jobs;
+        if (searchType.equals("all") || searchTerm.equals("")) {
+            jobs = JobData.findByValue(searchTerm);
+        } else {
+            jobs = JobData.findByColumnAndValue(searchType, searchTerm);
+        }
+        model.addAttribute("columns", ListController.columnChoices);
+        model.addAttribute("jobs", jobs);
+        return "search";
+    }
 }

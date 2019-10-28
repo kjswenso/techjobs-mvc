@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<div th:replace="fragments :: page-header"></div>
+<div th:replace="fragments :: page-header"></div>X
 
 <div class="container body-content">
 
@@ -37,6 +37,11 @@
     <hr />
 
     <!-- TODO #2 - Loop over jobs map to display all job fields -->
+
+    <div th:if="${jobs}">
+        <div th:replace="fragments :: results"></div>
+    </div>
+
 
 </div>
 

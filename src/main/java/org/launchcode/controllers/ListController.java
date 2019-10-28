@@ -26,6 +26,8 @@ public class ListController {
         columnChoices.put("all", "All");
     }
 
+
+    //displays different types of lists the user can view
     @RequestMapping(value = "")
     public String list(Model model) {
 
@@ -34,6 +36,12 @@ public class ListController {
         return "list";
     }
 
+
+    /* the controller uses the query parameter passed in as column to determine which values
+     * to fetch from JobData. In the case of "all" it will fetch all job data, and then render
+     * the list-jobs.html view template. In all other cases,it fetches only the values for the
+     * given column and passes them to the list-column.html view template.
+     */
     @RequestMapping(value = "values")
     public String listColumnValues(Model model, @RequestParam String column) {
 
@@ -52,6 +60,10 @@ public class ListController {
 
     }
 
+    /* we are "searching" for a particular value within a particular column and then displaying jobs that match
+    *the user will arrive at this handler method as a result of clicking on a link within one of our views,
+    * rather than via submitting a form
+    */
     @RequestMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model,
             @RequestParam String column, @RequestParam String value) {
